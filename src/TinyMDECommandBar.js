@@ -71,6 +71,14 @@ const DefaultCommands = {
     title: 'Insert link',
     hotkey: 'Mod-K',
   },
+  'insertProperty': {
+    name: 'insertProperty',
+    action: (editor) => {if (editor.isInlineFormattingAllowed()) editor.wrapSelection('{', '}()')},
+    enabled: (editor, focus, anchor) => editor.isInlineFormattingAllowed(focus, anchor) ? false : null,
+    innerHTML: svg.property,
+    title: 'Insert property',
+    hotkey: 'Mod-P',
+  },
   'insertImage': {
     name: 'insertImage',
     action: (editor) => {if (editor.isInlineFormattingAllowed()) editor.wrapSelection('![', ']()')},
@@ -106,7 +114,7 @@ class CommandBar {
     if (!element) {
       element = document.body; 
     }
-    this.createCommandBarElement(element, props.commands || ['bold', 'italic', 'strikethrough', '|', 'code', '|', 'h1', 'h2', '|', 'ul', 'ol', '|', 'blockquote', 'hr', '|', 'insertLink', 'insertImage']);
+    this.createCommandBarElement(element, props.commands || ['bold', 'italic', 'strikethrough', '|', 'code', '|', 'h1', 'h2', '|', 'ul', 'ol', '|', 'blockquote', 'hr', '|', 'insertLink', 'insertProperty', 'insertImage']);
     document.addEventListener('keydown', (e) => this.handleKeydown(e));
     if (props.editor) this.setEditor(props.editor);
   }
