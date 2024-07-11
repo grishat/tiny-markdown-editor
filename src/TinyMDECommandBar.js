@@ -73,7 +73,7 @@ const DefaultCommands = {
   },
   'insertProperty': {
     name: 'insertProperty',
-    action: (editor) => {if (editor.isInlineFormattingAllowed()) editor.wrapSelection('{', '}()')},
+    action: (editor) => {if (editor.isInlineFormattingAllowed()) editor.wrapSelection('{', '}(: )')},
     enabled: (editor, focus, anchor) => editor.isInlineFormattingAllowed(focus, anchor) ? false : null,
     innerHTML: svg.property,
     title: 'Insert property',
@@ -90,7 +90,7 @@ const DefaultCommands = {
   'hr': {
     name: 'hr',
     action: (editor) => editor.paste('\n***\n'),
-    enabled: () => false,
+    enabled: (editor, focus, anchor) => editor.isInlineFormattingAllowed(focus, anchor) ? false : null,
     innerHTML: svg.hr,
     title: 'Insert horizontal line',
     hotkey: 'Mod2-Shift-L'
