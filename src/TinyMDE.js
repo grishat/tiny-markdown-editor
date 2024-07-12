@@ -24,6 +24,7 @@ class Editor {
     this.listeners = {
       change: [],
       selection: [],
+      preview: [],
     };
 
     let element = props.element;
@@ -1910,6 +1911,20 @@ class Editor {
   }
 
   /**
+   * Fires a preview event. Notifies any event listeners.
+   */
+  firePreview() {
+    if (!this.listeners.preview.length) return;
+    const content = this.getContent();
+    for (let listener of this.listeners.preview) {
+      listener({
+        content: content,
+        linesDirty: this.linesDirty,
+      });
+    }
+  }
+
+  /**
    * Adds an event listener.
    * @param {string} type The type of event to listen to. Can be 'change' or 'selection'
    * @param {*} listener Function of the type (event) => {} to be called when the event occurs.
@@ -1920,6 +1935,9 @@ class Editor {
     }
     if (type.match(/^(?:selection|selectionchange)$/i)) {
       this.listeners.selection.push(listener);
+    }
+    if (type.match(/^(?:preview)$/i)) {
+      this.listeners.preview.push(listener);
     }
   }
 }
