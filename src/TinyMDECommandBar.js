@@ -101,7 +101,6 @@ const DefaultCommands = {
     enabled: () => false,
     innerHTML: svg.preview,
     title: 'Show preview',
-    hotkey: 'Mod-Mod2-P'
   }
 }
 
